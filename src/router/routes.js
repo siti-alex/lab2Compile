@@ -8,11 +8,11 @@ const routes = [
     ]
   },
   {
-    path: '/lab1',
+    path: '/lab2',
     component: () => import('pages/LabFirst')
   },
   {
-    path: '/lab2',
+    path: '/lab3',
     component: () => import('pages/LabSecond')
   },
 

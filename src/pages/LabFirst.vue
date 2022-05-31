@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>
+        <q-toolbar-title @click="toHome">
           Моделирование работы ДКА
         </q-toolbar-title>
         <div>Лабораторная работа 2</div>
@@ -162,6 +162,9 @@ export default defineComponent({
       }
       console.log(this.pathArray)
       this.start().then(this.test);
+    },
+    toHome(){
+      location.href = `/`;
     }
   },
   mounted() {

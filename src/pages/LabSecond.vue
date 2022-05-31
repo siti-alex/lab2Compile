@@ -2,8 +2,8 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title>
-          Анализатор
+        <q-toolbar-title @click="toHome">
+          Лексический анализатор
         </q-toolbar-title>
         <div>Лабораторная работа 3</div>
       </q-toolbar>
@@ -12,7 +12,7 @@
     <q-page-container>
       <q-input v-model="program" label="Введите условный оператор" style="padding: 20px;"/>
       <div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
-        <q-btn @click="inputLexeme" class="full-width" label="Анализировать"/>
+        <q-btn @click="inputLexeme" class="full-width" outline label="Анализировать"/>
       </div>
 
 <!--      <q-btn @click="letStruct" label="Тест"/>-->
@@ -243,7 +243,9 @@ export default {
         })
       }
     },
-
+    toHome(){
+      location.href = `/`;
+    }
   }
 }
 </script>
