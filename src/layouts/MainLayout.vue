@@ -1,53 +1,54 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-toolbar-title>
-          Моделирование работы ДКА
-        </q-toolbar-title>
-        <div>Лабораторная работа 2</div>
-      </q-toolbar>
-    </q-header>
+  <div></div>
+<!--  <q-layout view="lHh Lpr lFf">-->
+<!--    <q-header elevated>-->
+<!--      <q-toolbar>-->
+<!--        <q-toolbar-title>-->
+<!--          Моделирование работы ДКА-->
+<!--        </q-toolbar-title>-->
+<!--        <div>Лабораторная работа 2</div>-->
+<!--      </q-toolbar>-->
+<!--    </q-header>-->
 
-    <q-page-container>
-      <div class="row">
-        <div v-for="inp in inputs" :key="inp" class="col" style="padding: 20px">
-          <q-input v-model="inp.value" v-on:keyup.enter="addInput" autofocus label="Введите элемент алфавита">
-            <template v-slot:append >
-              <q-icon name="delete" disabled="inputs.indexOf(inp) == 0" v-if="inputs.indexOf(inp) == 0" class="cursor-pointer"/>
-              <q-icon name="delete" v-if="inputs.indexOf(inp) !== 0" @click="inputs.splice(inputs.indexOf(inp),1)" class="cursor-pointer"/>
-            </template>
-          </q-input>
-        </div>
-      </div>
-      <q-btn @click="check" flat class="full-width" style="padding: 10px" label="Проверить"/>
+<!--    <q-page-container>-->
+<!--      <div class="row">-->
+<!--        <div v-for="inp in inputs" :key="inp" class="col" style="padding: 20px">-->
+<!--          <q-input v-model="inp.value" v-on:keyup.enter="addInput" autofocus label="Введите элемент алфавита">-->
+<!--            <template v-slot:append >-->
+<!--              <q-icon name="delete" disabled="inputs.indexOf(inp) == 0" v-if="inputs.indexOf(inp) == 0" class="cursor-pointer"/>-->
+<!--              <q-icon name="delete" v-if="inputs.indexOf(inp) !== 0" @click="inputs.splice(inputs.indexOf(inp),1)" class="cursor-pointer"/>-->
+<!--            </template>-->
+<!--          </q-input>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <q-btn @click="check" flat class="full-width" style="padding: 10px" label="Проверить"/>-->
 
-      <q-card v-if="end" class="my-card bg-positive text-white text-center">
-        <q-card-section>
-          <div class="text-h6" >Цепочка принадлежит исходной грамматике</div>
-        </q-card-section>
-      </q-card>
-      <q-card v-if="error" class="my-card bg-negative text-white text-center">
-        <q-card-section>
-          <div class="text-h6" >Цепочка не принадлежит исходной грамматике</div>
-          <div class="text-subtitle2">Отсутствует путь по указанной цепочке</div>
-        </q-card-section>
-      </q-card>
-      <q-card v-if="error2" class="my-card bg-negative text-white text-center">
-        <q-card-section>
-          <div class="text-h6" >Цепочка не принадлежит исходной грамматике</div>
-          <div class="text-subtitle2">Автомат не пришёл в конечное значение</div>
-        </q-card-section>
-      </q-card>
-      <div class="col-12 text-center self-center" style="padding: 10px">
-        <q-img
-          width="40%"
-          src="~assets/graph.png"
-        />
-      </div>
+<!--      <q-card v-if="end" class="my-card bg-positive text-white text-center">-->
+<!--        <q-card-section>-->
+<!--          <div class="text-h6" >Цепочка принадлежит исходной грамматике</div>-->
+<!--        </q-card-section>-->
+<!--      </q-card>-->
+<!--      <q-card v-if="error" class="my-card bg-negative text-white text-center">-->
+<!--        <q-card-section>-->
+<!--          <div class="text-h6" >Цепочка не принадлежит исходной грамматике</div>-->
+<!--          <div class="text-subtitle2">Отсутствует путь по указанной цепочке</div>-->
+<!--        </q-card-section>-->
+<!--      </q-card>-->
+<!--      <q-card v-if="error2" class="my-card bg-negative text-white text-center">-->
+<!--        <q-card-section>-->
+<!--          <div class="text-h6" >Цепочка не принадлежит исходной грамматике</div>-->
+<!--          <div class="text-subtitle2">Автомат не пришёл в конечное значение</div>-->
+<!--        </q-card-section>-->
+<!--      </q-card>-->
+<!--      <div class="col-12 text-center self-center" style="padding: 10px">-->
+<!--        <q-img-->
+<!--          width="40%"-->
+<!--          src="~assets/graph.png"-->
+<!--        />-->
+<!--      </div>-->
 
-    </q-page-container>
-  </q-layout>
+<!--    </q-page-container>-->
+<!--  </q-layout>-->
 </template>
 
 <script>
