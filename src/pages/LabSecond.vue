@@ -51,7 +51,7 @@ export default {
     pagination: {
       rowsPerPage: 100
     },
-    program: 'if penis<3 then a++ --koks else a-2 end',
+    program: '',
     structure: null,
     language: {
       keywords: ['if','then','else','end'],
@@ -86,8 +86,8 @@ export default {
       this.output.variable.forEach(element => {
         this.rows.push({
           symbol: element,
-          category: 'Переменная',
-          comment: 'Просто переменная'
+          category: 'Идентификатор',
+          comment: 'Переменная'
         })
       })
       this.output.numbers.forEach(element => {
@@ -177,7 +177,7 @@ export default {
     },
     validation(){
       let test = this.program.split(' ');
-      if(test[0] == 'if' && test[2] == 'then' && test[test.length-1] == 'end'){
+      if(test[0] == 'if' && test[2] == 'then' && test[test.length-1] == 'end' && test[1]){
         this.error = false
         this.success = true
       }
