@@ -20,6 +20,13 @@
       <q-card v-if="error" class="my-card bg-negative text-white text-center">
         <q-card-section>
           <div class="text-h6" >Синтаксическая ошибка</div>
+<!--          <div class="text-subtitle2">Автомат не пришёл в конечное значение</div>-->
+        </q-card-section>
+      </q-card>
+      <q-card v-if="false" class="my-card bg-negative text-white text-center">
+        <q-card-section>
+          <div class="text-h6" v-if="false">Лексическая ошибка</div>
+<!--          <div class="text-subtitle2">Автомат не пришёл в конечное значение</div>-->
         </q-card-section>
       </q-card>
       <q-card v-if="success" class="my-card bg-positive text-white text-center">
