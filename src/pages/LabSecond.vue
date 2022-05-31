@@ -31,6 +31,7 @@
       <div class="q-pa-md" v-if="success && !error">
         <q-table
           title="Таблица терминальных символов"
+          :rows-per-page-options="[0]"
           dense
           :rows="rows"
           :columns="columns"
