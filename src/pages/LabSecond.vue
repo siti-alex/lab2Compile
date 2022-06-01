@@ -11,7 +11,7 @@
 
     <q-page-container>
       <q-input v-model="program" label="Введите условный оператор" placeholder="Placeholder" hint="Конструкция: if <условие> then <оператор> else <оператор> end" style="padding: 20px;"/>
-      <div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px; padding-top: 20px">
+      <div style="padding: 20px;">
         <q-btn @click="inputLexeme" class="full-width" outline label="Анализировать"/>
       </div>
 
@@ -20,18 +20,18 @@
       <q-card v-if="error" class="my-card bg-negative text-white text-center">
         <q-card-section>
           <div class="text-h6" >Синтаксическая ошибка</div>
-          <div class="text-subtitle2">{{message}}</div>
+          <div class="text-subtitle2" v-if="message">{{message}}</div>
         </q-card-section>
       </q-card>
-      <q-card v-if="false" class="my-card bg-negative text-white text-center">
+      <q-card  v-if="error2" class="my-card bg-negative text-white text-center">
         <q-card-section>
           <div class="text-h6">Лексическая ошибка</div>
-<!--          <div class="text-subtitle2">Автомат не пришёл в конечное значение</div>-->
+          <div class="text-subtitle2" v-if="message">{{message}}</div>
         </q-card-section>
       </q-card>
       <q-card v-if="success" class="my-card bg-positive text-white text-center">
         <q-card-section>
-          <div class="text-h6" >Синтаксис верен</div>
+          <div class="text-h6" >Синтаксис и лексика верна</div>
         </q-card-section>
       </q-card>
 
@@ -77,6 +77,7 @@ export default {
       {name: 'comment', label: 'Описание', field: 'comment'},
     ],
     error: false,
+    error2: false,
     success: false,
     message: '',
 
@@ -184,33 +185,57 @@ export default {
       return !isNaN(parseFloat(n)) && isFinite(n);
     },
     validation(){
-      let thenReg = new RegExp('.hen|t.en|th.n|the. | ..en| t..n | th.. ')
+      let thenReg = new RegExp('..en|t..n|th..|.hen|t.en|th.n|the.|ten|thn|the|hen')
+      let ifReg = new RegExp('.f|i.|f|i')
+      let endReg = new RegExp('.nd|e.d|en.|nd|en|ed')
       let test = this.program.split(' ');
-      // if(test[0] == 'if' && test[2] == 'then' && test[test.length-1] == 'end' && test[1]){
-      //   this.error = false
-      //   this.success = true
-      // }
-      // else {
-      //   this.error = true
-      //   this.success = false
-      // }
       if(test[0] !== 'if') {
-        this.message = 'Пропущен if'
-        this.error = true
-        this.structure = false
+        if(ifReg.test(test[0])){
+          this.message = 'Ошибка в написании ключевого слова if'
+          this.error = false
+          this.error2 = true
+          this.success = false
+        }
+        else {
+          this.message = 'Пропущен if'
+          this.error = true
+          this.error2 = false
+          this.success = false
+        }
+
       }
       else if(test[2] !== 'then') {
-        this.message = 'Пропущен then'
-        this.error = true
-        this.structure = false
+          if(thenReg.test(test[2])){
+            this.message = 'Ошибка в написании ключевого слова then'
+            this.error = false
+            this.error2 = true
+            this.success = false
+          }
+          else {
+            this.message = 'Пропущен then'
+            this.error = true
+            this.error2 = false
+            this.success = false
+          }
       }
       else if(test[test.length-1] !== 'end') {
-        this.message = 'Пропущен end'
-        this.error = true
-        this.structure = false
+        if(endReg.test(test[test.length-1])){
+          this.message = 'Ошибка в написании ключевого слова end'
+          this.error = false
+          this.error2 = true
+          this.success = false
+        }
+        else {
+          this.message = 'Пропущен end'
+          this.error = true
+          this.error2 = false
+          this.success = false
+        }
+
       }
       else {
         this.error = false
+        this.error2 = false
         this.success = true
         this.message = ''
       }
@@ -225,10 +250,11 @@ export default {
         this.message = `Неверное расположение ${result.join()}`
       }
 
-      console.log(test)
+      console.log(thenReg.test(test[2]))
     },
     async inputLexeme(){
       this.error = false
+      this.error2 = false
       this.success = false
       this.message = ''
       this.structure = null
@@ -245,7 +271,7 @@ export default {
           this.analyse(element)
         })
         this.letStruct()
-        console.log(this.output)
+        // console.log(this.output)
       }
 
     },
@@ -253,9 +279,7 @@ export default {
     analyse(lexeme){
       let wordReg = new RegExp('\\b\\w+\\b', 'g')
       let digReg = new RegExp('\\d+', 'gm')
-      // let specReg = new RegExp('(\\++|\\--|\\>|\\<|\\>=|\\<=|\\<>|\\=|\\==|\\+|\\-)','g')
       let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+','g')
-      let buffer = null
 
       if(this.language.keywords.includes(lexeme)){
         this.output.keywords.push(lexeme)
@@ -264,7 +288,7 @@ export default {
         lexeme.match(wordReg).forEach(element => {
           // console.log(element)
           if(wordReg.test(element) && !this.language.keywords.includes(element) && !this.output.variable.includes(element) && !this.isNumeric(element)){
-            console.log(element)
+            // console.log(element)
             this.output.variable.push(element)
           }
           if(wordReg.test(element) && !this.language.keywords.includes(element) && !this.output.variable.includes(element) && !this.isNumeric(element)){
