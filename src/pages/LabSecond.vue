@@ -10,8 +10,8 @@
     </q-header>
 
     <q-page-container>
-      <q-input v-model="program" label="Введите условный оператор" style="padding: 20px;"/>
-      <div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px">
+      <q-input v-model="program" label="Введите условный оператор" placeholder="Placeholder" hint="Конструкция: if <условие> then <оператор> else <оператор> end" style="padding: 20px;"/>
+      <div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px; padding-top: 20px">
         <q-btn @click="inputLexeme" class="full-width" outline label="Анализировать"/>
       </div>
 
@@ -20,12 +20,12 @@
       <q-card v-if="error" class="my-card bg-negative text-white text-center">
         <q-card-section>
           <div class="text-h6" >Синтаксическая ошибка</div>
-<!--          <div class="text-subtitle2">Автомат не пришёл в конечное значение</div>-->
+          <div class="text-subtitle2">{{message}}</div>
         </q-card-section>
       </q-card>
       <q-card v-if="false" class="my-card bg-negative text-white text-center">
         <q-card-section>
-          <div class="text-h6" v-if="false">Лексическая ошибка</div>
+          <div class="text-h6">Лексическая ошибка</div>
 <!--          <div class="text-subtitle2">Автомат не пришёл в конечное значение</div>-->
         </q-card-section>
       </q-card>
@@ -58,7 +58,7 @@ export default {
     pagination: {
       rowsPerPage: 100
     },
-    program: '',
+    program: 'if a>b then a-- else b++ end',
     structure: null,
     language: {
       keywords: ['if','then','else','end'],
@@ -77,7 +77,8 @@ export default {
       {name: 'comment', label: 'Описание', field: 'comment'},
     ],
     error: false,
-    success: false
+    success: false,
+    message: '',
 
 
   }),
@@ -183,18 +184,53 @@ export default {
       return !isNaN(parseFloat(n)) && isFinite(n);
     },
     validation(){
+      let thenReg = new RegExp('.hen|t.en|th.n|the. | ..en| t..n | th.. ')
       let test = this.program.split(' ');
-      if(test[0] == 'if' && test[2] == 'then' && test[test.length-1] == 'end' && test[1]){
-        this.error = false
-        this.success = true
+      // if(test[0] == 'if' && test[2] == 'then' && test[test.length-1] == 'end' && test[1]){
+      //   this.error = false
+      //   this.success = true
+      // }
+      // else {
+      //   this.error = true
+      //   this.success = false
+      // }
+      if(test[0] !== 'if') {
+        this.message = 'Пропущен if'
+        this.error = true
+        this.structure = false
+      }
+      else if(test[2] !== 'then') {
+        this.message = 'Пропущен then'
+        this.error = true
+        this.structure = false
+      }
+      else if(test[test.length-1] !== 'end') {
+        this.message = 'Пропущен end'
+        this.error = true
+        this.structure = false
       }
       else {
-        this.error = true
-        this.success = false
+        this.error = false
+        this.success = true
+        this.message = ''
       }
+      let buffer = test.reduce((acc,item)=>{
+        acc[item] = acc[item] ? acc[item] +1 : 1;
+        return acc;
+      },{})
+      let result = Object.keys(buffer).filter((item) => buffer[item] > 1);
+      if(result.length !== 0) {
+        this.error = true;
+        this.success = false;
+        this.message = `Неверное расположение ${result.join()}`
+      }
+
       console.log(test)
     },
     async inputLexeme(){
+      this.error = false
+      this.success = false
+      this.message = ''
       this.structure = null
       this.output.characters = []
       this.output.numbers = []
@@ -204,11 +240,14 @@ export default {
       this.structure = this.program.split(' ')
       // console.log(this.structure)
       this.validation()
-      this.structure.forEach(element => {
-        this.analyse(element)
-      })
-      this.letStruct()
-      console.log(this.output)
+      if(this.success){
+        this.structure.forEach(element => {
+          this.analyse(element)
+        })
+        this.letStruct()
+        console.log(this.output)
+      }
+
     },
 
     analyse(lexeme){
