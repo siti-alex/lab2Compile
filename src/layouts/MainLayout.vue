@@ -13,8 +13,9 @@
         <router-link to="/lab2">
           <h6>Лабораторная работа 2</h6>
         </router-link>
+        <hr>
         <router-link to="/lab3">
-          <h6>Лабораторная работа 3</h6>
+          <h6>Лабораторная работа 3, 4</h6>
         </router-link>
       </div>
 
