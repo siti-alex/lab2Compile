@@ -193,7 +193,7 @@ export default {
             break;
         }
       })
-      console.log(this.rows)
+      // console.log(this.rows)
     },
     isNumeric(n) {
       return !isNaN(parseFloat(n)) && isFinite(n);
@@ -264,7 +264,7 @@ export default {
         this.message = `Неверное расположение ${result.join()}`
       }
 
-      console.log(thenReg.test(test[2]))
+      // console.log(thenReg.test(test[2]))
     },
     async inputLexeme(){
       this.error = false
@@ -294,8 +294,8 @@ export default {
       let wordReg = new RegExp('\\b\\w+\\b', 'g')
       let digReg = new RegExp('\\d+', 'gm')
       // let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+','g')
-      let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+|\\*|\\/','g')
-      // let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+|\\)|\\(|\\*|\\&|\\^|\\%|\\#|\\@|\\!','g')
+      // let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+|\\*|\\/','g')
+      let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+|\\)|\\(|\\*|\\&|\\^|\\%|\\#|\\@|\\!','g')
 
       if(this.language.keywords.includes(lexeme)){
         this.output.keywords.push(lexeme)
@@ -335,6 +335,11 @@ export default {
           }
         })
       }
+      // else if(specReg.test(lexeme)){
+      //   lexeme.match(specReg).forEach(element => {
+      //     console.log(element)
+      //   })
+      // }
     },
     toHome(){
       location.href = `/`;
