@@ -185,7 +185,7 @@ export default {
       return !isNaN(parseFloat(n)) && isFinite(n);
     },
     validation(){
-      let thenReg = new RegExp('..en|t..n|th..|.hen|t.en|th.n|the.|ten|thn|the|hen')
+      let thenReg = new RegExp('..en|t..n|th..|.hen|t.en|th.n|the.|ten|thn|the|hen|th|en|he|tn')
       let ifReg = new RegExp('.f|i.|f|i')
       let endReg = new RegExp('.nd|e.d|en.|nd|en|ed')
       let test = this.program.split(' ');
