@@ -62,7 +62,7 @@ export default {
     structure: null,
     language: {
       keywords: ['if','then','else','end'],
-      characters: ['<','<=','<>','>','>=','==','+','-','--','++'],
+      characters: ['<','<=','<>','>','>=','==','+','-','--','++','*','/'],
     },
     output: {
       keywords: [],
@@ -177,6 +177,20 @@ export default {
               category: 'Специальный символ',
               comment: 'Сравнение'
             })
+          case '*':
+            this.rows.push({
+              symbol: element,
+              category: 'Специальный символ',
+              comment: 'Умножение'
+            })
+            break;
+          case '/':
+            this.rows.push({
+              symbol: element,
+              category: 'Специальный символ',
+              comment: 'Деление'
+            })
+            break;
         }
       })
       console.log(this.rows)
@@ -279,7 +293,9 @@ export default {
     analyse(lexeme){
       let wordReg = new RegExp('\\b\\w+\\b', 'g')
       let digReg = new RegExp('\\d+', 'gm')
-      let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+','g')
+      // let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+','g')
+      let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+|\\*|\\/','g')
+      // let specReg = new RegExp('((<|>|=)(>|=)?)|(\\+|\\-)+|\\)|\\(|\\*|\\&|\\^|\\%|\\#|\\@|\\!','g')
 
       if(this.language.keywords.includes(lexeme)){
         this.output.keywords.push(lexeme)
@@ -310,6 +326,12 @@ export default {
           // }
           if(this.language.characters.includes(element) && !this.output.characters.includes(element)){
             this.output.characters.push(element)
+          }
+          else {
+            this.error = false
+            this.error2 = true
+            this.success = false
+            this.message = `Неопознанный символ ${element}`
           }
         })
       }
