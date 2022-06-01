@@ -177,6 +177,7 @@ export default {
               category: 'Специальный символ',
               comment: 'Сравнение'
             })
+            break;
           case '*':
             this.rows.push({
               symbol: element,
