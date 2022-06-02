@@ -330,14 +330,19 @@ export default {
       }
       if(specReg.test(lexeme)){
         lexeme.match(specReg).forEach(element => {
-          // console.log(element)
+          console.log(element)
           // if(specReg.test(element) && !this.output.characters.includes(element)){
           //   this.output.characters.push(element)
           // }
-          if(this.language.characters.includes(element) && !this.output.characters.includes(element)){
-            this.output.characters.push(element)
+          if(this.language.characters.includes(element) ){
+              if(!this.output.characters.includes(element)){
+                this.output.characters.push(element)
+              }
+
+
           }
-          else {
+          else {//Тут баг
+            console.log(element)
             this.error = false
             this.error2 = true
             this.success = false
