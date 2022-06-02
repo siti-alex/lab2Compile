@@ -203,6 +203,7 @@ export default {
       let thenReg = new RegExp('..en|t..n|th..|.hen|t.en|th.n|the.|ten|thn|the|hen|th|en|he|tn')
       let ifReg = new RegExp('.f|i.|f|i')
       let endReg = new RegExp('.nd|e.d|en.|nd|en|ed')
+      let compReg = new RegExp('<>|<|>|=|<=|>=')
       let test = this.program.split(' ');
       if(test[0] !== 'if') {
         if(ifReg.test(test[0])){
@@ -218,6 +219,12 @@ export default {
           this.success = false
         }
 
+      }
+      else if(!compReg.test(test[1])){
+        this.message = 'Ошибка оператора сравнения'
+        this.error = true
+        this.error2 = false
+        this.success = false
       }
       else if(test[2] !== 'then') {
           if(thenReg.test(test[2])){
@@ -246,7 +253,6 @@ export default {
           this.error2 = false
           this.success = false
         }
-
       }
       else {
         this.error = false
