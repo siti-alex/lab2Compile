@@ -10,9 +10,11 @@
     </q-header>
 
     <q-page-container>
-      <q-input v-model="program" label="Введите условный оператор" placeholder="Placeholder" hint="Конструкция: if <условие> then <оператор> else <оператор> end" style="padding: 20px;"/>
+      <div style="width: 40%; margin: auto">
+        <q-input v-model="program" label="Введите условный оператор" placeholder="Ожидается ввод" hint="Конструкция: if <условие> then <оператор> else <оператор> end" style="padding: 20px;"/>
+      </div>
       <div style="padding: 20px;">
-        <q-btn @click="inputLexeme" class="full-width" outline label="Анализировать"/>
+        <q-btn @click="inputLexeme" class="full-width" :disable="program" outline label="Анализировать"/>
       </div>
 
 <!--      <q-btn @click="letStruct" label="Тест"/>-->
@@ -37,14 +39,15 @@
 
       <div class="q-pa-md" v-if="success && !error">
         <q-table
+          style="width: 50%; margin: auto"
           title="Таблица терминальных символов"
           :rows-per-page-options="[0]"
-          dense
           :rows="rows"
           :columns="columns"
           row-key="name"
           :pagination="pagination"
-        />
+          separator="vertical"
+        ></q-table>
       </div>
 
     </q-page-container>
