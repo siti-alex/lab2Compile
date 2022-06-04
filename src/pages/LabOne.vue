@@ -9,14 +9,45 @@
       </q-toolbar>
     </q-header>
     <q-page-container>
-      <div v-for="element in outFront" :key="element" class="out">
-        <p v-if="outFront.indexOf(element)!== outFront.length-1">
-          {{element}}=>
-        </p>
-        <p v-if="outFront.indexOf(element) === outFront.length-1">
-          {{element}}
-        </p>
+      <div>
+        <div style="width: 40%; margin: auto; padding: 20px">
+          <q-input v-model="input" label="Цель" outlined/>
+        </div>
+
+        <div style="width: 20%; margin: auto">
+          <q-img src="~/assets/rules.png" ></q-img>
+        </div>
+
+        <q-btn label="Сгенерировать" outline @click="generate" class="full-width"/>
+
+        <q-card v-if="error" class="my-card bg-negative text-white text-center" style="margin-top: 20px;">
+          <q-card-section>
+            <div class="text-h6" >Цепочка не является правильной скобочной последовательностью</div>
+          </q-card-section>
+        </q-card>
+<!--        <div v-if="success" style="margin-left: 10%; margin-right: 10%">-->
+<!--          <div v-for="element in outFront" :key="element" class="out" >-->
+<!--            <p v-if="outFront.indexOf(element)!== outFront.length-1">-->
+<!--              {{element}} =>-->
+<!--            </p>-->
+<!--            <p v-if="outFront.indexOf(element) === outFront.length-1">-->
+<!--              {{element}}-->
+<!--            </p>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div v-if="success"  class=" flex flex-center" style="width: 100%; height: auto; font-style: italic; padding: 20px">
+                    <div v-for="element in outFront" :key="element" class="out" >
+                      <p v-if="outFront.indexOf(element)!== outFront.length-1">
+                        {{element}} =>
+                      </p>
+                      <p v-if="outFront.indexOf(element) === outFront.length-1">
+                        {{element}}
+                      </p>
+                    </div>
+        </div>
+
       </div>
+
 
     </q-page-container>
   </q-layout>
@@ -32,6 +63,7 @@ name: "LabOne",
     out: [],
     outFront: [],
     success: false,
+    error: false
   }),
   methods: {
     generate(){
@@ -51,9 +83,11 @@ name: "LabOne",
       })
       if(a === 0){
         this.success = true;
+        this.error = false
       }
       else {
         this.success = false;
+        this.error = true;
       }
     },
     analyse(){
@@ -78,8 +112,6 @@ name: "LabOne",
         })
         let xz = []
         let xz2 = ''
-        let xz3 = []
-        let xz4 = []
         test.forEach(element => {
           while(this.start.replace('s','') !== element){
             this.start = this.start.replace('s','(s)')
@@ -129,7 +161,7 @@ name: "LabOne",
     }
   },
   mounted() {
-  this.generate()
+  // this.generate()
   }
 }
 </script>
@@ -138,11 +170,12 @@ name: "LabOne",
 .out {
   float: left; /*Задаем обтекание*/
   /*line-height: 120px;!*Высота строки +  верт. центрирования текста*!*/
-  font-size: 40px;
+  font-size: 30px;
   /*color: white;*/
   /*margin-top: 60px;*/
   /*width: 320px; !*Фиксируем ширину блока*!*/
-  /*margin-right: 10px;*/
+  margin-right: 10px;
+  /*margin: auto;*/
   text-align: center; /*Центрируем текст по горизонтали*/
 }
 </style>
