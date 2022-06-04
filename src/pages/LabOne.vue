@@ -25,17 +25,7 @@
             <div class="text-h6" >Цепочка не является правильной скобочной последовательностью</div>
           </q-card-section>
         </q-card>
-<!--        <div v-if="success" style="margin-left: 10%; margin-right: 10%">-->
-<!--          <div v-for="element in outFront" :key="element" class="out" >-->
-<!--            <p v-if="outFront.indexOf(element)!== outFront.length-1">-->
-<!--              {{element}} =>-->
-<!--            </p>-->
-<!--            <p v-if="outFront.indexOf(element) === outFront.length-1">-->
-<!--              {{element}}-->
-<!--            </p>-->
-<!--          </div>-->
-<!--        </div>-->
-        <div v-if="success"  class=" flex flex-center" style="width: 100%; height: auto; font-style: italic; padding: 20px">
+        <div v-if="success"  class="bg-primary text-white flex flex-center" style="width: 100%; height: 100%; padding: 20px">
                     <div v-for="element in outFront" :key="element" class="out" >
                       <p v-if="outFront.indexOf(element)!== outFront.length-1">
                         {{element}} =>
@@ -115,9 +105,6 @@ name: "LabOne",
         test.forEach(element => {
           while(this.start.replace('s','') !== element){
             this.start = this.start.replace('s','(s)')
-            // console.log(this.start)
-            // xz.push(this.start)
-
             if(test.indexOf(element) === 0){
               xz.push(this.start)
             }
@@ -125,34 +112,19 @@ name: "LabOne",
               // xz3 = this.start.replace('s','')
               xz.push(xz2+this.start)
             }
-
           }
-
-          // this.out.push(this.start.replace('s',''))
           this.start = 's'
-          // console.log(xz.join())
-          // xz2 += xz.join()
-          // xz3.push(xz2)
-          // xz = []
-          // console.log(xz3)
-          // xz.push('щёлк')
+
           xz.forEach(el => {
             if(xz.indexOf(el) === xz.length-1){
               xz2 = el.replace('s','')
             }
           })
-          // xz.push(xz2)
-          // console.log(xz)
           this.outFront = xz;
-
         })
         this.outFront.unshift('s')
         this.outFront.push(this.outFront[this.outFront.length-1].replace('s',''))
         console.log(this.outFront)
-        // this.out.forEach(element => {
-        //   this.outFront += element
-        // })
-        // console.log(this.outFront)
       }
 
     },
@@ -168,14 +140,9 @@ name: "LabOne",
 
 <style scoped>
 .out {
-  float: left; /*Задаем обтекание*/
-  /*line-height: 120px;!*Высота строки +  верт. центрирования текста*!*/
+  float: left;
   font-size: 30px;
-  /*color: white;*/
-  /*margin-top: 60px;*/
-  /*width: 320px; !*Фиксируем ширину блока*!*/
   margin-right: 10px;
-  /*margin: auto;*/
-  text-align: center; /*Центрируем текст по горизонтали*/
+  text-align: center;
 }
 </style>
