@@ -10,6 +10,10 @@
     </q-header>
     <q-page-container>
       <div style="padding: 20px">
+        <router-link to="/lab1">
+          <h6>Лабораторная работа 1</h6>
+        </router-link>
+        <hr>
         <router-link to="/lab2">
           <h6>Лабораторная работа 2</h6>
         </router-link>
