@@ -12,7 +12,7 @@
     <q-page-container>
       <div class="row">
         <div v-for="inp in inputs" :key="inp" class="col" style="padding: 20px">
-          <q-input v-model="inp.value" v-on:keyup.enter="addInput" autofocus label="Введите элемент алфавита">
+          <q-input v-model="inp.value" v-on:keyup.enter="addInput" hint="Нажмите enter для ввода следующего символа" autofocus label="Введите элемент алфавита">
             <template v-slot:append >
               <q-icon name="delete" disabled="inputs.indexOf(inp) == 0" v-if="inputs.indexOf(inp) == 0" class="cursor-pointer"/>
               <q-icon name="delete" v-if="inputs.indexOf(inp) !== 0" @click="inputs.splice(inputs.indexOf(inp),1)" class="cursor-pointer"/>
