@@ -9,7 +9,14 @@
       </q-toolbar>
     </q-header>
     <q-page-container>
-
+      <div v-for="element in outFront" :key="element" class="out">
+        <p v-if="outFront.indexOf(element)!== outFront.length-1">
+          {{element}}=>
+        </p>
+        <p v-if="outFront.indexOf(element) === outFront.length-1">
+          {{element}}
+        </p>
+      </div>
 
     </q-page-container>
   </q-layout>
@@ -128,5 +135,14 @@ name: "LabOne",
 </script>
 
 <style scoped>
-
+.out {
+  float: left; /*Задаем обтекание*/
+  /*line-height: 120px;!*Высота строки +  верт. центрирования текста*!*/
+  font-size: 40px;
+  /*color: white;*/
+  /*margin-top: 60px;*/
+  /*width: 320px; !*Фиксируем ширину блока*!*/
+  /*margin-right: 10px;*/
+  text-align: center; /*Центрируем текст по горизонтали*/
+}
 </style>
